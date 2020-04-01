@@ -1,5 +1,5 @@
 #!/bin/sh -l
 
-echo "Hello $1"
-time=$(date)
-echo "::set-output name=time::$time"
+echo "Starting coverage quality gate checks..."
+dotnet script /entrypoint.csx $1 $2
+echo "Code coverage quality gate complete..."

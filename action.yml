@@ -1,15 +1,16 @@
-name: 'Hello World'
-description: 'Greet someone and record the time'
+name: 'Validate Unity Tests.'
+description: 'A GitHub Action code coverage quality gate for Unity Code Coverage tools.'
 inputs:
-  who-to-greet:  # id of input
-    description: 'Who to greet'
+  coverage-file-path:
+    description: 'The path of the coverage file to parse.'
     required: true
-    default: 'World'
-outputs:
-  time: # id of output
-    description: 'The time we greeted you'
+    default: './artifacts/CodeCoverage/Report/Summary.xml'
+  required-coverage:  
+    description: 'Percentage of code coverage under which quality gate will fail.'
+    required: true
+    default: '75'
 runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
-    - ${{ inputs.who-to-greet }}
+    - ${{ inputs.required-coverage }} ${{ inputs.coverage-file-path }}
