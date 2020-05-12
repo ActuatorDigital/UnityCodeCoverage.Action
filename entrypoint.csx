@@ -2,17 +2,22 @@ using System.Linq;
 using System.Xml.Linq;
 using System.IO;
 
-void Main(string[] args){
+int Main(string[] args){
     
+    const int FAIL_RESULT = 1;
+    const int SUCCESS_RESULT = 0;
     var coverageFilePath = new FileInfo(args[1]);
     var coverage = new TestCoverageChecker(coverageFilePath);
 
     var requiredCoverage = float.Parse(args[0]);
     var actualCoverage = coverage.GetCodeCoverage();
-    if(actualCoverage >= requiredCoverage)
+    if (actualCoverage >= requiredCoverage) {
         Console.WriteLine($"Code coverage checks pass with {actualCoverage}/{requiredCoverage}%.");
-    else
-        throw new InsufficientCodeCoverageException(actualCoverage,requiredCoverage);
+        return SUCCESS_RESULT;
+    } else {
+        Console.Error.WriteLine($"Insufficient code coverage {actualCoverage}/{requiredCoverage}%");
+        return FAIL_RESULT;        
+    }
 }
 
 class TestCoverageChecker {
