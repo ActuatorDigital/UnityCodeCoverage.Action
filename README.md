@@ -10,16 +10,16 @@ This github action parses the output of the [unity code coverage package](https:
 ### `coverage-file-path` - **Required** 
 The path of the coverage file to parse.
 
-Default: './artifacts/CodeCoverage/Report/Summary.xml'
+Default: `./artifacts/CodeCoverage/Report/Summary.xml`
 
 ### `required-coverage` - **Required**
 The minimum percentage of code coverage requried for the action to sucessfully complete. 
 
-Default: 75
+Default: `75`
 
 ## Example usage
-First, if you haven't already, set up a new build action in your project's /.github/workflows/main.yml. 
-```
+First, if you haven't already, set up a new build action in your project's `/.github/workflows/main.yml`. 
+```yaml
 name: Unity CI 
 
 # Controls when the action will run. Triggers the workflow on push or pull request
@@ -32,12 +32,11 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-
 ```
 This untiy code coverage action dependes on artifacts from the test job, set that job to run first. Great documentation on how to setup and activate unity inside an action container has been made available by the [untiy-actions repo author webbertakken](https://github.com/webbertakken/unity-actions).
 
 AIR's fork of this repo [AnImaginedReality/UntiyTestRunner.Action@v1.6.1 ](https://github.com/AnImaginedReality/UntiyTestRunner.Action) adds unity code coverage support to his github action.
-```
+```yaml
   test:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
@@ -73,7 +72,7 @@ AIR's fork of this repo [AnImaginedReality/UntiyTestRunner.Action@v1.6.1 ](https
           path: artifacts
 ```
 Once the tests job has run, and the artifacts have been uploaded, a job for this repo's action can be run to assert code coverage requirements are met.
-```
+```yaml
   code-coverage:
       # The type of runner that the job will run on
       name: coverage
